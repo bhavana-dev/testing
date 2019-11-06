@@ -146,7 +146,6 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.6/js/swiper.min.js"></script>
     <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
-    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAInrucxqh4SXD1SZcpjFIZq9EnDjD-k74&libraries=places,drawing"></script> -->
     <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places,drawing"></script>
     
     <script src=" {{ url('/js/notify.js') }}"></script>
