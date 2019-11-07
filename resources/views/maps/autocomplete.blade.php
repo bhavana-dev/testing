@@ -119,27 +119,36 @@
 //intializtion of map for autocomplete suggation
 function initMap() {
     var input = document.getElementById('searchMapInput');
-    var bangaloreBounds = new google.maps.LatLngBounds(
-          new google.maps.LatLng(12.864162, 77.438610),
-          new google.maps.LatLng(13.139807, 77.711895));
-    var options = { 
-          types: ['(cities)'],
-          bounds: bangaloreBounds,
-          componentRestrictions: {country: 'in'},
-          strictBounds: true,
-        };
+    var geocoder = geocoder = new google.maps.Geocoder();
 
-        
-        var autocomplete = new google.maps.places.Autocomplete(input, options);
-   
-    // autocomplete.setComponentRestrictions({'country': ['in']});
-      
-    autocomplete.addListener('place_changed', function() {
-        var place = autocomplete.getPlace();
-        document.getElementById('location-snap').innerHTML = place.formatted_address;
-        document.getElementById('lat-span').innerHTML = place.geometry.location.lat();
-        document.getElementById('lon-span').innerHTML = place.geometry.location.lng();
+    //geocoding with address to get bounds
+    geocoder.geocode( { 'address': "delhi"}, function(results, status) {
+        if (status == 'OK') {
+            console.log(results[0].geometry.bounds);
+            //south-west and north-east corners
+            var bangaloreBounds = new google.maps.LatLngBounds(
+                    new google.maps.LatLng(17.2916377 ,78.2387067),
+                    new google.maps.LatLng(17.5608321, 78.6223912));
+            var options = { 
+                  types: ['address'], //establishment , address , cities ,geocode
+                  bounds: results[0].geometry.bounds,
+                  componentRestrictions: {country: 'in'},
+                  strictBounds: true,
+                };
+                
+                var autocomplete = new google.maps.places.Autocomplete(input, options);
+           
+            // autocomplete.setComponentRestrictions({'country': ['in']});
+              
+            autocomplete.addListener('place_changed', function() {
+                var place = autocomplete.getPlace();
+                document.getElementById('location-snap').innerHTML = place.formatted_address;
+                document.getElementById('lat-span').innerHTML = place.geometry.location.lat();
+                document.getElementById('lon-span').innerHTML = place.geometry.location.lng();
+            });
+        }
     });
+    
 }
 
 
